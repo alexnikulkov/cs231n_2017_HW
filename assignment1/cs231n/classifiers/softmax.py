@@ -23,6 +23,8 @@ def softmax_loss_naive(W, X, y, reg):
   # Initialize the loss and gradient to zero.
   loss = 0.0
   dW = np.zeros_like(W)
+  N = X.shape[0]
+  C = W.shape[1]
 
   #############################################################################
   # TODO: Compute the softmax loss and its gradient using explicit loops.     #
@@ -30,7 +32,15 @@ def softmax_loss_naive(W, X, y, reg):
   # here, it is easy to run into numeric instability. Don't forget the        #
   # regularization!                                                           #
   #############################################################################
-  pass
+  scores = np.dot(X, W)
+  scores = scores - np.amin(scores, axis=1, keepdims=True)
+  exps = np.exp(scores)
+  probs = exps / np.sum(exps, axis=1, keepdims=True)
+  loss = np.mean(-scores[range(len(y)), y] + np.log(np.sum(exps, axis=1, keepdims=True))) + reg * np.sum(W * W)
+  dW = 2 * reg * W
+  for i in range(N):
+        for k in range(C):
+            dW[:,k] += X[i,:] * (probs[i,k] - 1*(y[i] == k)) / N
   #############################################################################
   #                          END OF YOUR CODE                                 #
   #############################################################################
@@ -46,15 +56,24 @@ def softmax_loss_vectorized(W, X, y, reg):
   """
   # Initialize the loss and gradient to zero.
   loss = 0.0
-  dW = np.zeros_like(W)
-
+  #dW = np.zeros_like(W)
+  N = X.shape[0]
+  C = W.shape[1]
   #############################################################################
   # TODO: Compute the softmax loss and its gradient using no explicit loops.  #
   # Store the loss in loss and the gradient in dW. If you are not careful     #
   # here, it is easy to run into numeric instability. Don't forget the        #
   # regularization!                                                           #
   #############################################################################
-  pass
+  scores = np.dot(X, W)
+  scores = scores - np.amin(scores, axis=1, keepdims=True)
+  exps = np.exp(scores)
+  probs = exps / np.sum(exps, axis=1, keepdims=True)
+  loss = np.mean(-scores[range(len(y)), y] + np.log(np.sum(exps, axis=1, keepdims=True))) + reg * np.sum(W * W)
+  dW = 2 * reg * W
+  one_hot = np.eye(C)[y]
+  dW = dW - np.dot(X.T, one_hot) / N
+  dW = dW + np.dot(X.T, probs) / N
   #############################################################################
   #                          END OF YOUR CODE                                 #
   #############################################################################
