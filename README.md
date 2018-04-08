@@ -26,7 +26,7 @@ My homeworks for Stanford CS231n (Spring 2017)
 | Question | Status|
 |---------------------|-------------------|
 | Q1: Image Captioning with Vanilla RNNs (25 points) | Done |
-| Q2: Image Captioning with LSTMs (30 points) | In progress |
+| Q2: Image Captioning with LSTMs (30 points) | Done |
 | Q3: Network Visualization: Saliency maps, Class Visualization, and Fooling Images (15 points) | Done (TF) |
 | Q4: Style Transfer (15 points) | Done (TF) |
 | Q5: Generative Adversarial Networks (15 points) | Done (TF) |
