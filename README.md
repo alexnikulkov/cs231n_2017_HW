@@ -1,5 +1,5 @@
 # cs231n_2017_HW
-My homeworks for Stanford CS231n (Spring 2017)
+My homeworks for [Stanford CS231n (Spring 2017)](http://cs231n.stanford.edu/2017/)
 
 **Assignment 1**:
 
